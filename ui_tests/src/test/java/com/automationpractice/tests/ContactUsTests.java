@@ -35,12 +35,30 @@ public class ContactUsTests extends TestBase {
 
     //Tests
     @Test
-    public void SendMessageWithoutContentError() {
+    public void SendMessageInvalidEmailAddressError() {
         //Arrange
-       // Invalid email address.
+        menuFlows = new MenuFlows();
+        contactUsFlows = new ContactUsFlows();
+
+        String email = "invalid";
+        String message = "message contact us";
+        String subjectHeading = "Customer service";
+        String orderReference = "123456789";
+        String expectedMessage = "Invalid email address.";
+
         //Act
+        menuFlows.ClickContactUs();
+        contactUsFlows.SendAMessage(email, message, subjectHeading, orderReference);
 
         //Assert
+        String text = contactUsFlows.GetTextAlertError();
+        Assert.assertEquals(expectedMessage, text);
+
+    }
+
+    @Test
+    public void SendMessageWithoutContentError() {
+
 
     }
 }
