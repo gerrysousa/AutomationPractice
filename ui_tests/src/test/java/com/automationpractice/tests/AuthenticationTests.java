@@ -104,10 +104,20 @@ public class AuthenticationTests extends TestBase {
     @Test
     public void SignInWithoutPasswordError() {
         //Arrange
+        menuFlows = new MenuFlows();
+        authenticationFlows = new AuthenticationFlows();
+
+        String email = "auto_teste@a.com";
+        String password = "";
+        String expectMessage = "Password is required.";
 
         //Act
+        menuFlows.ClickSignIn();
+        authenticationFlows.DoLogin(email, password);
 
         //Assert
+        String text = authenticationFlows.GetTextAlertSignIn();
+        Assert.assertEquals(expectMessage, text);
 
     }
 
