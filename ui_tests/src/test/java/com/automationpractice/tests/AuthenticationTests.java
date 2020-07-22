@@ -5,6 +5,8 @@ import com.automationpractice.flows.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static com.automationpractice.utils.Utils.GetNowDateJustNumbers;
+
 public class AuthenticationTests extends TestBase {
     //Objects
     MenuFlows menuFlows;
@@ -54,14 +56,23 @@ public class AuthenticationTests extends TestBase {
         Assert.assertTrue(linkExists);
     }
 
+    //To do
     @Test
     public void CreateAnAcountSucess() {
         //Arrange
+        menuFlows = new MenuFlows();
+        authenticationFlows = new AuthenticationFlows();
+
+        String email = GetNowDateJustNumbers() + "@email.com"; //create an email format 202007220811@email.com
+        String expectedMessage = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
 
         //Act
+        menuFlows.ClickSignIn();
+        authenticationFlows.FillEmailToCreateAnAccount(email);
+        //To do
 
         //Assert
-
+        //To do
     }
 
     @Test

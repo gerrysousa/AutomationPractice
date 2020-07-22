@@ -17,28 +17,27 @@ public class PageBase {
     protected JavascriptExecutor javaScriptExecutor = null;
 
     //Construtor
-    public PageBase(){
-        wait = new WebDriverWait (DriverFactory.INSTANCE, GlobalParameters.TIMEOUT_DEFAULT);
+    public PageBase() {
+        wait = new WebDriverWait(DriverFactory.INSTANCE, GlobalParameters.TIMEOUT_DEFAULT);
         driver = DriverFactory.INSTANCE;
         javaScriptExecutor = (JavascriptExecutor) driver;
     }
 
     //Custom Actions
-    private void waitUntilPageReady(){
+    private void waitUntilPageReady() {
         StopWatch timeOut = new StopWatch();
         timeOut.start();
 
-        while (timeOut.getTime() <= GlobalParameters.TIMEOUT_DEFAULT)
-        {
+        while (timeOut.getTime() <= GlobalParameters.TIMEOUT_DEFAULT) {
             String documentState = javaScriptExecutor.executeScript("return document.readyState").toString();
-            if (documentState.equals("complete")){
+            if (documentState.equals("complete")) {
                 timeOut.stop();
                 break;
             }
         }
     }
 
-    protected WebElement waitForElement(By locator){
+    protected WebElement waitForElement(By locator) {
         waitUntilPageReady();
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         WebElement element = driver.findElement(locator);
@@ -46,7 +45,7 @@ public class PageBase {
         return element;
     }
 
-    protected WebElement waitForElementByTime(By locator, int time){
+    protected WebElement waitForElementByTime(By locator, int time) {
         waitUntilPageReady();
         WebDriverWait waitTime = new WebDriverWait(driver, time);
         waitTime.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -55,7 +54,7 @@ public class PageBase {
         return element;
     }
 
-    protected WebElement waitForElementDisabled(By locator){
+    protected WebElement waitForElementDisabled(By locator) {
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         WebElement element = driver.findElement(locator);
         return element;
@@ -69,34 +68,25 @@ public class PageBase {
         return shadowRootElement;
     }
 
-    protected void Click(By locator){
+    protected void Click(By locator) {
         WebDriverException possibleWebDriverException = null;
         StopWatch timeOut = new StopWatch();
         timeOut.start();
 
-        while (timeOut.getTime() <= GlobalParameters.TIMEOUT_DEFAULT)
-        {
+        while (timeOut.getTime() <= GlobalParameters.TIMEOUT_DEFAULT) {
             WebElement element = null;
 
-            try
-            {
+            try {
                 element = waitForElement(locator);
                 element.click();
                 timeOut.stop();
                 ExtentReportUtils.addTestInfo(3, "");
                 return;
-            }
-
-            catch (StaleElementReferenceException e)
-            {
+            } catch (StaleElementReferenceException e) {
                 continue;
-            }
-
-            catch (WebDriverException e)
-            {
+            } catch (WebDriverException e) {
                 possibleWebDriverException = e;
-                if (e.getMessage().contains("Other element would receive the click"))
-                {
+                if (e.getMessage().contains("Other element would receive the click")) {
                     continue;
                 }
 
@@ -106,75 +96,72 @@ public class PageBase {
 
         try {
             throw new Exception(possibleWebDriverException);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected void SendKeys(By locator, String text){
+    protected void SendKeys(By locator, String text) {
         waitForElement(locator).sendKeys(text);
         ExtentReportUtils.addTestInfo(3, "PARAMETER: " + text);
     }
 
-    protected void SendKeysWithoutWaitVisible(By locator, String text){
+    protected void SendKeysWithoutWaitVisible(By locator, String text) {
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         WebElement element = driver.findElement(locator);
         element.sendKeys(text);
         ExtentReportUtils.addTestInfo(3, "PARAMETER: " + text);
     }
 
-    protected void Clear(By locator){
+    protected void Clear(By locator) {
         WebElement webElement = waitForElement(locator);
         webElement.clear();
     }
 
-    protected void ClearAndSendKeys(By locator, String text){
+    protected void ClearAndSendKeys(By locator, String text) {
         WebElement webElement = waitForElement(locator);
         webElement.sendKeys(Keys.CONTROL + "a");
         webElement.sendKeys(Keys.DELETE);
         webElement.sendKeys(text);
     }
 
-    protected void ComboBoxSelectByVisibleText(By locator, String text){
+    protected void ComboBoxSelectByVisibleText(By locator, String text) {
         Select comboBox = new Select(waitForElement(locator));
         comboBox.selectByVisibleText(text);
         ExtentReportUtils.addTestInfo(3, "PARAMETER: " + text);
     }
 
-    protected void mouseOver(By locator){
+    protected void mouseOver(By locator) {
         Actions action = new Actions(driver);
         action.moveToElement(waitForElement(locator)).build().perform();
         ExtentReportUtils.addTestInfo(3, "");
     }
 
-    protected String GetText(By locator){
+    protected String GetText(By locator) {
         String text = waitForElement(locator).getText();
         ExtentReportUtils.addTestInfo(3, "RETURN: " + text);
         return text;
     }
 
-    protected String getValue(By locator){
+    protected String getValue(By locator) {
         String text = waitForElement(locator).getAttribute("value");
         ExtentReportUtils.addTestInfo(3, "RETURN: " + text);
         return text;
     }
 
-    protected boolean returnIfElementIsDisplayed(By locator){
+    protected boolean returnIfElementIsDisplayed(By locator) {
         boolean result = waitForElement(locator).isDisplayed();
         ExtentReportUtils.addTestInfo(3, "RETURN: " + result);
         return result;
     }
 
-    protected boolean returnIfElementExists(By locator){
+    protected boolean returnIfElementExists(By locator) {
         boolean result = false;
 
-        try
-        {
+        try {
             wait.until(ExpectedConditions.presenceOfElementLocated(locator));
             result = true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         ExtentReportUtils.addTestInfo(3, "RETURN: " + result);
@@ -182,14 +169,14 @@ public class PageBase {
     }
 
 
-    protected boolean returnIfElementIsEnabled(By locator){
+    protected boolean returnIfElementIsEnabled(By locator) {
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         boolean result = driver.findElement(locator).isEnabled();
         ExtentReportUtils.addTestInfo(3, "RETURN: " + result);
         return result;
     }
 
-    protected boolean returnIfElementIsSelected(By locator){
+    protected boolean returnIfElementIsSelected(By locator) {
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         boolean result = driver.findElement(locator).isSelected();
         ExtentReportUtils.addTestInfo(3, "RETURN: " + result);
@@ -197,58 +184,67 @@ public class PageBase {
     }
 
     //Javascrip actions
-    protected void SendKeysJavaScript(By locator, String value){
+    protected void SendKeysJavaScript(By locator, String value) {
         WebElement element = waitForElement(locator);
         javaScriptExecutor.executeScript("arguments[0].value='" + value + "';", element);
         ExtentReportUtils.addTestInfo(3, "PARAMETER: " + value);
     }
 
-    protected void ClickJavaScript(By locator){
+    protected void ClickJavaScript(By locator) {
         WebElement element = waitForElement(locator);
         javaScriptExecutor.executeScript("arguments[0].click();", element);
         ExtentReportUtils.addTestInfo(3, "");
     }
 
-    protected void ScrollToElementJavaScript(By locator){
+    protected void ScrollToElementJavaScript(By locator) {
         WebElement element = waitForElement(locator);
         javaScriptExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
         ExtentReportUtils.addTestInfo(3, "");
     }
 
-    protected void ScrollToTop(){
+    protected void ScrollToTop() {
         javaScriptExecutor.executeScript("window.scrollTo(0, 0);");
         ExtentReportUtils.addTestInfo(3, "");
     }
 
     //Default actions
-    public void refresh(){
+    public void refresh() {
         DriverFactory.INSTANCE.navigate().refresh();
         ExtentReportUtils.addTestInfo(2, "");
     }
 
-    public void navigateTo(String url){
+    public void navigateTo(String url) {
         DriverFactory.INSTANCE.navigate().to(url);
         ExtentReportUtils.addTestInfo(2, "PARAMETER: " + url);
     }
 
-    public void openNewTab(){
+    public void openNewTab() {
         javaScriptExecutor.executeScript("window.open();");
         ExtentReportUtils.addTestInfo(2, "");
     }
-    public void closeTab(){
+
+    public void closeTab() {
         driver.close();
         ExtentReportUtils.addTestInfo(2, "");
     }
 
-    public String getTitle(){
+    public String getTitle() {
         String title = driver.getTitle();
         ExtentReportUtils.addTestInfo(2, "");
         return title;
     }
 
-    public String getURL(){
+    public String getURL() {
         String url = driver.getCurrentUrl();
         ExtentReportUtils.addTestInfo(2, "");
         return url;
     }
+
+    public By ConvertTextToBy(String text){
+        String byText = "//*[text()='"+text+"']";
+        By byConvert = By.xpath(byText);
+        return byConvert;
+    }
+
+
 }

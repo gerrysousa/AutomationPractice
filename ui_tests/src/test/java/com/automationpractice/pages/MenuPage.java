@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class MenuPage extends PageBase {
     //Mapping
-    By linkContactUs = By.id("contact-link");
+    By linkContactUs = By.xpath("//a[@title='Contact Us']");
     By linkSignOut = By.xpath("//a[@class='logout']");
     By linkSignin = By.xpath("//a[@class='login']");
     By linkAccount = By.xpath("//a[@class='account']/span");

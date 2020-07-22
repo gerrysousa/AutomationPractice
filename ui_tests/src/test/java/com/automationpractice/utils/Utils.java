@@ -74,4 +74,12 @@ public class Utils {
 
         return sb.toString();
     }
+
+    public static String GetNowDateJustNumbers(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date();
+        System.out.println(dateFormat.format(date));
+        return dateFormat.format(date);
+    }
+
 }

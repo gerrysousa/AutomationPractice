@@ -22,4 +22,8 @@ public class MenuFlows {
     public boolean ReturnExistsLinkSignIn() {
         return menuPage.ReturnExistsLinkSignIn();
     }
+
+    public void ClickContactUs() {
+        menuPage.ClickLinkContactUs();
+    }
 }
