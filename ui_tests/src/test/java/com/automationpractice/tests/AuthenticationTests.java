@@ -66,10 +66,19 @@ public class AuthenticationTests extends TestBase {
     @Test
     public void CreateAnAcountEmailAlreadyBeenRegistered() {
         //Arrange
+        menuFlows = new MenuFlows();
+        authenticationFlows = new AuthenticationFlows();
+
+        String email = "auto_teste@a.com";
+        String expectedMessage = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
 
         //Act
+        menuFlows.ClickSignIn();
+        authenticationFlows.FillEmailToCreateAnAccount(email);
 
         //Assert
+       String text = authenticationFlows.GetTextAlert();
+        Assert.assertEquals(expectedMessage, text);
 
     }
 

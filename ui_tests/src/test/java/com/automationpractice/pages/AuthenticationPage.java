@@ -8,7 +8,9 @@ public class AuthenticationPage  extends PageBase {
     By txtEmail = By.id("email");
     By txtPassword = By.id("passwd");
     By btnSignIn = By.id("SubmitLogin");
-
+    By txtNewEmail = By.id("email_create");
+    By btnCreateAnAccount = By.id("SubmitCreate");
+    By alertMessage = By.id("create_account_error");
 
 
     //Actions
@@ -22,5 +24,18 @@ public class AuthenticationPage  extends PageBase {
 
     public void ClickBtnSignIn() {
         Click(btnSignIn);
+    }
+
+    public void FillInNewEmail(String email) {
+        SendKeys(txtNewEmail, email);
+    }
+
+    public void ClickBtnCreateAnAccount() {
+        Click(btnCreateAnAccount);
+    }
+
+    public String GetTextAlert() {
+        String text = GetText(alertMessage);
+        return  text;
     }
 }

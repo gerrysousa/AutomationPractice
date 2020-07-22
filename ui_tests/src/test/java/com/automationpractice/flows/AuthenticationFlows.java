@@ -16,4 +16,12 @@ public class AuthenticationFlows {
     }
 
 
+    public void FillEmailToCreateAnAccount(String email) {
+        authenticationPage.FillInNewEmail(email);
+        authenticationPage.ClickBtnCreateAnAccount();
+    }
+
+    public String GetTextAlert() {
+        return authenticationPage.GetTextAlert();
+    }
 }
