@@ -9,6 +9,7 @@ public class AuthenticationTests extends TestBase {
     //Objects
     MenuFlows menuFlows;
     AuthenticationFlows authenticationFlows;
+    ForgotPasswordFlows forgotPasswordFlows;
 
     //Tests
     @Test
@@ -19,7 +20,7 @@ public class AuthenticationTests extends TestBase {
 
         String email = "auto_teste@a.com";
         String password = "123456789";
-        String expectMessage = "ClientName LastName";
+        String expectedMessage = "ClientName LastName";
 
         //Act
         menuFlows.ClickSignIn();
@@ -27,7 +28,7 @@ public class AuthenticationTests extends TestBase {
 
         //Assert
         String text = menuFlows.GetTextUserAccount();
-        Assert.assertEquals(expectMessage, text);
+        Assert.assertEquals(expectedMessage, text);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class AuthenticationTests extends TestBase {
 
         String email = "";
         String password = "123456789";
-        String expectMessage = "An email address required.";
+        String expectedMessage = "An email address required.";
 
         //Act
         menuFlows.ClickSignIn();
@@ -97,7 +98,7 @@ public class AuthenticationTests extends TestBase {
 
         //Assert
         String text = authenticationFlows.GetTextAlertSignIn();
-        Assert.assertEquals(expectMessage, text);
+        Assert.assertEquals(expectedMessage, text);
 
     }
 
@@ -109,7 +110,7 @@ public class AuthenticationTests extends TestBase {
 
         String email = "auto_teste@a.com";
         String password = "";
-        String expectMessage = "Password is required.";
+        String expectedMessage = "Password is required.";
 
         //Act
         menuFlows.ClickSignIn();
@@ -117,7 +118,7 @@ public class AuthenticationTests extends TestBase {
 
         //Assert
         String text = authenticationFlows.GetTextAlertSignIn();
-        Assert.assertEquals(expectMessage, text);
+        Assert.assertEquals(expectedMessage, text);
 
     }
 
@@ -129,7 +130,7 @@ public class AuthenticationTests extends TestBase {
 
         String email = "auto_teste@a.com";
         String password = "1";
-        String expectMessage = "Invalid password.";
+        String expectedMessage = "Invalid password.";
 
         //Act
         menuFlows.ClickSignIn();
@@ -137,7 +138,7 @@ public class AuthenticationTests extends TestBase {
 
         //Assert
         String text = authenticationFlows.GetTextAlertSignIn();
-        Assert.assertEquals(expectMessage, text);
+        Assert.assertEquals(expectedMessage, text);
 
     }
 
@@ -149,7 +150,7 @@ public class AuthenticationTests extends TestBase {
 
         String email = "auto_teste@a.com";
         String password = "111111111111";
-        String expectMessage = "Authentication failed.";
+        String expectedMessage = "Authentication failed.";
 
         //Act
         menuFlows.ClickSignIn();
@@ -157,17 +158,27 @@ public class AuthenticationTests extends TestBase {
 
         //Assert
         String text = authenticationFlows.GetTextAlertSignIn();
-        Assert.assertEquals(expectMessage, text);
+        Assert.assertEquals(expectedMessage, text);
 
     }
 
     @Test
-    public void ForgotPasswordSucess() {
+    public void RetrievePasswordSucess() {
         //Arrange
+        menuFlows = new MenuFlows();
+        authenticationFlows = new AuthenticationFlows();
+        forgotPasswordFlows = new ForgotPasswordFlows();
+        String email = "auto_teste@a.com";
+        String expectedMessage = "A confirmation email has been sent to your address: auto_teste@a.com";
 
         //Act
+        menuFlows.ClickSignIn();
+        authenticationFlows.ClickLinkForgotYourPassword();
+        forgotPasswordFlows.RetrievePassword(email);
 
         //Assert
+        String text = forgotPasswordFlows.GetTextAlert();
+        Assert.assertEquals(expectedMessage, text);
 
     }
 

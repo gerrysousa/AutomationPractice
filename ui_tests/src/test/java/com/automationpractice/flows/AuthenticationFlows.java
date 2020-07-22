@@ -28,4 +28,8 @@ public class AuthenticationFlows {
     public String GetTextAlertSignIn() {
         return authenticationPage.GetTextAlertSignIn();
     }
+
+    public void ClickLinkForgotYourPassword() {
+        authenticationPage.ClickLinkForgotYourPassword();
+    }
 }

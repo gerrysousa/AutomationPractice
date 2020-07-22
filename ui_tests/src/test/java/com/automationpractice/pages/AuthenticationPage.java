@@ -12,7 +12,7 @@ public class AuthenticationPage  extends PageBase {
     By btnCreateAnAccount = By.id("SubmitCreate");
     By alertMessageCreateAccount = By.id("create_account_error");
     By alertMessageSignIn = By.xpath("//div[@class='alert alert-danger']//li");
-
+    By linkForgotYourPassword= By.xpath("//a[@title='Recover your forgotten password']");
 
     //Actions
     public void FillInEmail(String email) {
@@ -43,5 +43,9 @@ public class AuthenticationPage  extends PageBase {
     public String GetTextAlertSignIn() {
         String text = GetText(alertMessageSignIn);
         return  text;
+    }
+
+    public void ClickLinkForgotYourPassword() {
+        Click(linkForgotYourPassword);
     }
 }
