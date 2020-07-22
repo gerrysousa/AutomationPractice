@@ -124,12 +124,24 @@ public class AuthenticationTests extends TestBase {
     @Test
     public void SignInInvalidPasswordError() {
         //Arrange
+        menuFlows = new MenuFlows();
+        authenticationFlows = new AuthenticationFlows();
+
+        String email = "auto_teste@a.com";
+        String password = "1";
+        String expectMessage = "Invalid password.";
 
         //Act
+        menuFlows.ClickSignIn();
+        authenticationFlows.DoLogin(email, password);
 
         //Assert
+        String text = authenticationFlows.GetTextAlertSignIn();
+        Assert.assertEquals(expectMessage, text);
 
     }
+
+
 
     @Test
     public void ForgotPasswordSucess() {
