@@ -33,11 +33,24 @@ public class AuthenticationTests extends TestBase {
     @Test
     public void LogoutSucess() {
         //Arrange
+        menuFlows = new MenuFlows();
+        authenticationFlows = new AuthenticationFlows();
+
+        String email = "auto_teste@a.com";
+        String password = "123456789";
+        String expectLoginOk= "ClientName LastName";
 
         //Act
+        menuFlows.ClickSignIn();
+        authenticationFlows.DoLogin(email, password);
+        String loginOK = menuFlows.GetTextUserAccount();
+
+        menuFlows.DoLogout();
 
         //Assert
-
+        boolean linkExists = menuFlows.ReturnExistsLinkSignIn();
+        Assert.assertEquals(expectLoginOk, loginOK);
+        Assert.assertTrue(linkExists);
     }
 
     @Test
