@@ -58,7 +58,23 @@ public class ContactUsTests extends TestBase {
 
     @Test
     public void SendMessageWithoutContentError() {
+        //Arrange
+        menuFlows = new MenuFlows();
+        contactUsFlows = new ContactUsFlows();
 
+        String email = "auto_teste@a.com";
+        String message = "";
+        String subjectHeading = "Customer service";
+        String orderReference = "123456789";
+        String expectedMessage = "The message cannot be blank.";
+
+        //Act
+        menuFlows.ClickContactUs();
+        contactUsFlows.SendAMessage(email, message, subjectHeading, orderReference);
+
+        //Assert
+        String text = contactUsFlows.GetTextAlertError();
+        Assert.assertEquals(expectedMessage, text);
 
     }
 }
