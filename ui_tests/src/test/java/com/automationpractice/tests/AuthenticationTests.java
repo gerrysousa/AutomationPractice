@@ -177,7 +177,7 @@ public class AuthenticationTests extends TestBase {
         forgotPasswordFlows.RetrievePassword(email);
 
         //Assert
-        String text = forgotPasswordFlows.GetTextAlert();
+        String text = forgotPasswordFlows.GetTextAlertSucess();
         Assert.assertEquals(expectedMessage, text);
 
     }
@@ -185,10 +185,20 @@ public class AuthenticationTests extends TestBase {
     @Test
     public void ForgotPasswordInvalidEmailError() {
         //Arrange
+        menuFlows = new MenuFlows();
+        authenticationFlows = new AuthenticationFlows();
+        forgotPasswordFlows = new ForgotPasswordFlows();
+        String email = "invalid";
+        String expectedMessage = "Invalid email address.";
 
         //Act
+        menuFlows.ClickSignIn();
+        authenticationFlows.ClickLinkForgotYourPassword();
+        forgotPasswordFlows.RetrievePassword(email);
 
         //Assert
+        String text = forgotPasswordFlows.GetTextAlertError();
+        Assert.assertEquals(expectedMessage, text);
 
     }
 }

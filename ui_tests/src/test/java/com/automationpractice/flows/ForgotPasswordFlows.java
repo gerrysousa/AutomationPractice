@@ -10,8 +10,12 @@ public class ForgotPasswordFlows {
         forgotPasswordPage.ClickBtnRetrivePassword();
     }
 
-    public String GetTextAlert() {
-        return forgotPasswordPage.GetTextAlert();
+    public String GetTextAlertSucess() {
+        return forgotPasswordPage.GetTextAlertSucess();
+    }
+
+    public String GetTextAlertError() {
+        return forgotPasswordPage.GetTextAlertError();
     }
 
     //Flows
