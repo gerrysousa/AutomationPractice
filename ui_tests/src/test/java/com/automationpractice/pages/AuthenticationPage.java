@@ -10,7 +10,8 @@ public class AuthenticationPage  extends PageBase {
     By btnSignIn = By.id("SubmitLogin");
     By txtNewEmail = By.id("email_create");
     By btnCreateAnAccount = By.id("SubmitCreate");
-    By alertMessage = By.id("create_account_error");
+    By alertMessageCreateAccount = By.id("create_account_error");
+    By alertMessageSignIn = By.xpath("//div[@class='alert alert-danger']//li");
 
 
     //Actions
@@ -34,8 +35,13 @@ public class AuthenticationPage  extends PageBase {
         Click(btnCreateAnAccount);
     }
 
-    public String GetTextAlert() {
-        String text = GetText(alertMessage);
+    public String GetTextAlertCreateAccount() {
+        String text = GetText(alertMessageCreateAccount);
+        return  text;
+    }
+
+    public String GetTextAlertSignIn() {
+        String text = GetText(alertMessageSignIn);
         return  text;
     }
 }

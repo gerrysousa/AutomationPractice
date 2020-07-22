@@ -38,7 +38,7 @@ public class AuthenticationTests extends TestBase {
 
         String email = "auto_teste@a.com";
         String password = "123456789";
-        String expectLoginOk= "ClientName LastName";
+        String expectLoginOk = "ClientName LastName";
 
         //Act
         menuFlows.ClickSignIn();
@@ -77,18 +77,27 @@ public class AuthenticationTests extends TestBase {
         authenticationFlows.FillEmailToCreateAnAccount(email);
 
         //Assert
-       String text = authenticationFlows.GetTextAlert();
+        String text = authenticationFlows.GetTextAlertCreateAccount();
         Assert.assertEquals(expectedMessage, text);
-
     }
 
     @Test
     public void SignInWithoutEmailAddresError() {
         //Arrange
+        menuFlows = new MenuFlows();
+        authenticationFlows = new AuthenticationFlows();
+
+        String email = "";
+        String password = "123456789";
+        String expectMessage = "An email address required.";
 
         //Act
+        menuFlows.ClickSignIn();
+        authenticationFlows.DoLogin(email, password);
 
         //Assert
+        String text = authenticationFlows.GetTextAlertSignIn();
+        Assert.assertEquals(expectMessage, text);
 
     }
 

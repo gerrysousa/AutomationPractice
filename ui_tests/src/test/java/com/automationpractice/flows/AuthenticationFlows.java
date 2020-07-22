@@ -21,7 +21,11 @@ public class AuthenticationFlows {
         authenticationPage.ClickBtnCreateAnAccount();
     }
 
-    public String GetTextAlert() {
-        return authenticationPage.GetTextAlert();
+    public String GetTextAlertCreateAccount() {
+        return authenticationPage.GetTextAlertCreateAccount();
+    }
+
+    public String GetTextAlertSignIn() {
+        return authenticationPage.GetTextAlertSignIn();
     }
 }
