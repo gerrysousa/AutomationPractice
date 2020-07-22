@@ -69,7 +69,7 @@ public class PageBase {
         return shadowRootElement;
     }
 
-    protected void click(By locator){
+    protected void Click(By locator){
         WebDriverException possibleWebDriverException = null;
         StopWatch timeOut = new StopWatch();
         timeOut.start();
@@ -111,31 +111,31 @@ public class PageBase {
         }
     }
 
-    protected void sendKeys(By locator, String text){
+    protected void SendKeys(By locator, String text){
         waitForElement(locator).sendKeys(text);
         ExtentReportUtils.addTestInfo(3, "PARAMETER: " + text);
     }
 
-    protected void sendKeysWithoutWaitVisible(By locator, String text){
+    protected void SendKeysWithoutWaitVisible(By locator, String text){
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         WebElement element = driver.findElement(locator);
         element.sendKeys(text);
         ExtentReportUtils.addTestInfo(3, "PARAMETER: " + text);
     }
 
-    protected void clear(By locator){
+    protected void Clear(By locator){
         WebElement webElement = waitForElement(locator);
         webElement.clear();
     }
 
-    protected void clearAndSendKeys(By locator, String text){
+    protected void ClearAndSendKeys(By locator, String text){
         WebElement webElement = waitForElement(locator);
         webElement.sendKeys(Keys.CONTROL + "a");
         webElement.sendKeys(Keys.DELETE);
         webElement.sendKeys(text);
     }
 
-    protected void comboBoxSelectByVisibleText(By locator, String text){
+    protected void ComboBoxSelectByVisibleText(By locator, String text){
         Select comboBox = new Select(waitForElement(locator));
         comboBox.selectByVisibleText(text);
         ExtentReportUtils.addTestInfo(3, "PARAMETER: " + text);
@@ -147,7 +147,7 @@ public class PageBase {
         ExtentReportUtils.addTestInfo(3, "");
     }
 
-    protected String getText(By locator){
+    protected String GetText(By locator){
         String text = waitForElement(locator).getText();
         ExtentReportUtils.addTestInfo(3, "RETURN: " + text);
         return text;
